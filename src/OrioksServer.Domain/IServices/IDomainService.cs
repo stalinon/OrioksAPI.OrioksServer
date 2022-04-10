@@ -1,11 +1,11 @@
 ﻿using System.Linq.Expressions;
 
-namespace OrioksServer.Abstractions.Ports.Repositories
+namespace OrioksServer.Domain.IServices
 {
     /// <summary>
-    ///     Репозиторий
+    ///     Основа доменных сервисов
     /// </summary>
-    public interface IRepository<T> where T : class
+    public interface IDomainService<T> where T : class
     {
         /// <summary>
         ///     Найти по id
@@ -20,10 +20,10 @@ namespace OrioksServer.Abstractions.Ports.Repositories
         /// <param name="includeProperties">Включение параметров</param>
         /// <param name="isTracking">Отслеживание запроса</param>
         IEnumerable<T> GetAll(
-            Expression<Func<T, bool>>? filter = null,                    
-            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,   
-            string includeProperties = null!,                            
-            bool isTracking = true                                      
+            Expression<Func<T, bool>>? filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+            string includeProperties = null!,
+            bool isTracking = true
             );
 
         /// <summary>
@@ -33,9 +33,9 @@ namespace OrioksServer.Abstractions.Ports.Repositories
         /// <param name="includeProperties">Включение параметров</param>
         /// <param name="isTracking">Отслеживание запроса</param>
         T FirstOrDefault(
-            Expression<Func<T, bool>>? filter = null,                  
-            string includeProperties = null!,                            
-            bool isTracking = true                                     
+            Expression<Func<T, bool>>? filter = null,
+            string includeProperties = null!,
+            bool isTracking = true
             );
 
         /// <summary>
@@ -52,10 +52,5 @@ namespace OrioksServer.Abstractions.Ports.Repositories
         ///     Удалить несколько объектов
         /// </summary>
         void RemoveRange(IEnumerable<T> entity);
-
-        /// <summary>
-        ///     Сохранить изменения
-        /// </summary>
-        void Save();
     }
 }
