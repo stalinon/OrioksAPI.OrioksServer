@@ -7,7 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Ports\Queries\" />
+    <Compile Remove="Ports\Queries\**" />
+    <EmbeddedResource Remove="Ports\Queries\**" />
+    <None Remove="Ports\Queries\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Quartz" Version="3.4.0" />
   </ItemGroup>
 
 </Project>
