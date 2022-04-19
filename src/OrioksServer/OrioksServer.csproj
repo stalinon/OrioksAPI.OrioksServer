@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OrioksServer.Domain\OrioksServer.Domain.csproj" />
+    <ProjectReference Include="..\OrioksServer.Persistance\OrioksServer.Persistance.csproj" />
   </ItemGroup>
 
 </Project>

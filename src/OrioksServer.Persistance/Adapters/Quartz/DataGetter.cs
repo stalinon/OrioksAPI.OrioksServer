@@ -1,5 +1,4 @@
 ﻿using OrioksDecorator;
-using OrioksDecorator.Models.ScheduleNoApi;
 using OrioksServer.Abstractions.Entities;
 using OrioksServer.Abstractions.Ports.Quartz;
 using OrioksServer.Persistance.Adapters.Quartz.Mappings;
