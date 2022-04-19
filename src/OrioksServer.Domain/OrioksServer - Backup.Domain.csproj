@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OrioksServer.Abstractions\OrioksServer.Abstractions.csproj" />
+    <ProjectReference Include="..\OrioksServer\OrioksServercsproj" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@ using OrioksServer.Abstractions.Entities;
 
 namespace OrioksServer.Persistance.Adapters.Database
 {
-    internal sealed class AppDbContext : DbContext
+    public sealed class AppDbContext : DbContext
     {
         public AppDbContext()
         {
