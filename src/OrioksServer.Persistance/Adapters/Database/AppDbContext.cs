@@ -5,7 +5,7 @@ namespace OrioksServer.Persistance.Adapters.Database
 {
     public sealed class AppDbContext : DbContext
     {
-        public AppDbContext()
+        public AppDbContext(DbContextOptions<AppDbContext> options)
         {
             Database.EnsureCreated();
         }
