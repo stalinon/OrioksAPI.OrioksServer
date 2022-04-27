@@ -4,7 +4,7 @@ using OrioksServer.Abstractions.Ports.Repositories;
 namespace OrioksServer.Persistance.Adapters.Database
 {
     /// <inheritdoc cref="IUnitOfWork"/>
-    internal class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         /// <inheritdoc/>
         public IScheduleRepository Schedules { get; set; } = default!;
