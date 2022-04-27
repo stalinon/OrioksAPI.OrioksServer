@@ -1,4 +1,4 @@
-﻿using OrioksServer.Abstractions.Entities;
+using OrioksServer.Abstractions.Entities;
 
 namespace OrioksServer.Domain.IServices
 {
@@ -9,8 +9,8 @@ namespace OrioksServer.Domain.IServices
     {
         /// <summary>
         ///     Найти незанятые аудитории
-        ///     на заданный день
+        ///     на заданную пару
         /// </summary>
-        Task<ScheduleEntity> FindEmptyRooms(DateTime dateTime);
+        IEnumerable<string> FindEmptyRooms(int time);
     }
 }
