@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using OrioksServer.Abstractions.Ports;
 using Quartz;
 
@@ -28,8 +28,18 @@ namespace OrioksServer.Persistance.Adapters.Quartz
                 var teachers = await dataGetter.GetTeachers();
                 var schedules = await dataGetter.GetSchedules();
 
-                teachers.ToList().ForEach(x => uof.Teachers.Add(x));
-                schedules.ToList().ForEach(x => uof.Schedules.Add(x));
+                foreach (var item in teachers)
+                {
+                    uof.Teachers.Add(item);
+                }
+
+                foreach (var item in schedules)
+                {
+                    uof.Schedules.Add(item);
+                }
+                
+                uof.Teachers.Save();
+                uof.Schedules.Save();
             }
         }
     }

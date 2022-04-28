@@ -24,19 +24,22 @@ namespace OrioksServer.Models.Teacher
         ///     Степень
         /// </summary>
         [JsonPropertyName("degree")]
-        public string Degree { get; set; } = default!;
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? Degree { get; set; }
 
         /// <summary>
         ///     Глава
         /// </summary>
         [JsonPropertyName("chapter")]
-        public string Chapter { get; set; } = default!;
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? Chapter { get; set; }
 
         /// <summary>
         ///     Должность
         /// </summary>
         [JsonPropertyName("position")]
-        public string Position { get; set; } = default!;
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? Position { get; set; }
 
         /// <summary>
         ///     Номер телефона

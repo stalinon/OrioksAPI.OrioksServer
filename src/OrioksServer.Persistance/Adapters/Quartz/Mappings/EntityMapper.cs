@@ -1,4 +1,5 @@
-﻿using OrioksDecorator.Models.ScheduleNoApi;
+using OrioksDecorator.Models.ScheduleNoApi;
+using OrioksDecorator.Models.Teacher;
 using OrioksServer.Abstractions.Entities;
 
 namespace OrioksServer.Persistance.Adapters.Quartz.Mappings
@@ -33,6 +34,27 @@ namespace OrioksServer.Persistance.Adapters.Quartz.Mappings
             }
 
             return entities.ToArray();
+        }
+
+        /// <summary>
+        ///     Маппинг преподов
+        /// </summary>
+        internal static TeacherEntity MapTeacher(Teacher teacher)
+        {
+            return new TeacherEntity
+            {
+                Auditory = teacher.Auditory,
+                Biography = teacher.Biography,
+                Chapter = teacher.Chapter,
+                Courses = teacher.Courses,
+                Degree = teacher.Degree,
+                Email = teacher.Email,
+                ImageUrl = teacher.ImageUrl,
+                Name = teacher.Name,
+                PhoneNumber = teacher.PhoneNumber,
+                Position = teacher.Position,
+                Science = teacher.Science
+            };
         }
     }
 }

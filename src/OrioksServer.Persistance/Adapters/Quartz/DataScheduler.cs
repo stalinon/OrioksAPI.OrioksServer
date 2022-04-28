@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Spi;
@@ -18,8 +18,8 @@ namespace OrioksServer.Persistance.Adapters.Quartz
                 .WithIdentity("GettingDataTrigger", "default")
                 .StartNow()
                 .WithSimpleSchedule(x => x
-                .WithInterval(TimeSpan.FromDays(7))
-                .RepeatForever())
+                    .WithInterval(TimeSpan.FromDays(7))
+                    .RepeatForever())
                 .Build();
 
             await scheduler.ScheduleJob(jobDetail, trigger);

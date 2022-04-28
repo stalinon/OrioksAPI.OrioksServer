@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace OrioksServer.Abstractions.Entities
 {
     /// <summary>
@@ -8,6 +10,7 @@ namespace OrioksServer.Abstractions.Entities
         /// <summary>
         ///     Идентификатор
         /// </summary>
+        [Key]
         public int Id { get; set; }
 
         /// <summary>

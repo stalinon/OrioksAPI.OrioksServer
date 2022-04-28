@@ -1,4 +1,4 @@
-﻿using OrioksDecorator;
+using OrioksDecorator;
 using OrioksServer.Abstractions.Entities;
 using OrioksServer.Abstractions.Ports.Quartz;
 using OrioksServer.Persistance.Adapters.Quartz.Mappings;
@@ -6,12 +6,12 @@ using OrioksServer.Persistance.Adapters.Quartz.Mappings;
 namespace OrioksServer.Persistance.Adapters.Quartz
 {
     /// <inheritdoc cref="IDataGetter"/>
-    internal sealed class DataGetter : IDataGetter
+    public sealed class DataGetter : IDataGetter
     {
         /// <inheritdoc/>
         public async Task<IEnumerable<ScheduleEntity>> GetSchedules()
         {
-            var client = await OrioksClient.Instance(new OrioksAccount());
+            var client = await OrioksClient.Instance();
             var groupKeys = await client.ScheduleNoApi.GetGroupKeys();
 
             var schedules = new List<ScheduleEntity>();
@@ -26,9 +26,13 @@ namespace OrioksServer.Persistance.Adapters.Quartz
         }
 
         /// <inheritdoc/>
-        public Task<IEnumerable<TeacherEntity>> GetTeachers()
+        public async Task<IEnumerable<TeacherEntity>> GetTeachers()
         {
-            throw new NotImplementedException();
+            var client = await OrioksClient.Instance();
+
+            var teachers = (await client.Teacher.GetAllTeacherInfos()).Select(EntityMapper.MapTeacher);
+
+            return teachers;
         }
     }
 }
