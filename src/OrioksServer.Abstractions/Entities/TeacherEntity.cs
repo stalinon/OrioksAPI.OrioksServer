@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace OrioksServer.Abstractions.Entities
 {
     /// <summary>
@@ -8,6 +10,7 @@ namespace OrioksServer.Abstractions.Entities
         /// <summary>
         ///     Идентификатор
         /// </summary>
+        [Key]
         public int Id { get; set; }
 
         /// <summary>
@@ -18,17 +21,17 @@ namespace OrioksServer.Abstractions.Entities
         /// <summary>
         ///     Степень
         /// </summary>
-        public string Degree { get; set; } = default!;
+        public string? Degree { get; set; }
 
         /// <summary>
         ///     Глава
         /// </summary>
-        public string Chapter { get; set; } = default!;
+        public string? Chapter { get; set; } = default!;
 
         /// <summary>
         ///     Должность
         /// </summary>
-        public string Position { get; set; } = default!;
+        public string? Position { get; set; } = default!;
 
         /// <summary>
         ///     Номер телефона

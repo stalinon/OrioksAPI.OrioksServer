@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 
 namespace OrioksServer.Abstractions.Ports.Repositories
 {
@@ -13,13 +13,18 @@ namespace OrioksServer.Abstractions.Ports.Repositories
         T Find(int id);
 
         /// <summary>
+        ///     Содержится ли в БД
+        /// </summary>
+        bool Contains(T entity);
+
+        /// <summary>
         ///     Получить все объекты
         /// </summary>
         /// <param name="filter">Фильтр</param>
         /// <param name="orderBy">Порядок вывода</param>
         /// <param name="includeProperties">Включение параметров</param>
         /// <param name="isTracking">Отслеживание запроса</param>
-        IEnumerable<T> GetAll(
+        IEnumerable<T>? GetAll(
             Expression<Func<T, bool>>? filter = null,                    
             Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,   
             string includeProperties = null!,                            

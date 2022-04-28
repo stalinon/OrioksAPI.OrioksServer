@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using OrioksServer.Abstractions.Ports.Repositories;
 using System.Linq.Expressions;
 
@@ -21,7 +21,14 @@ namespace OrioksServer.Persistance.Adapters.Database.Repositories
         /// <inheritdoc/>
         public virtual void Add(T entity)
         {
-            dbSet.Add(entity);
+            if (!Contains(entity))
+                dbSet.Add(entity);
+        }
+
+        /// <inheritdoc/>
+        public virtual bool Contains(T entity)
+        {
+            return FirstOrDefault(x => x.Equals(entity)) != default;
         }
 
         /// <inheritdoc/>
@@ -57,7 +64,7 @@ namespace OrioksServer.Persistance.Adapters.Database.Repositories
         }
 
         /// <inheritdoc/>
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, string includeProperties = null!, bool isTracking = true)
+        public IEnumerable<T>? GetAll(Expression<Func<T, bool>>? filter = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, string includeProperties = null!, bool isTracking = true)
         {
             IQueryable<T> query = dbSet;
 
@@ -84,7 +91,7 @@ namespace OrioksServer.Persistance.Adapters.Database.Repositories
                 query = query.AsNoTracking();
             }
 
-            return query.ToList();
+            return query.Count() != 0 ? query.ToList() : default;
         }
 
         /// <inheritdoc/>

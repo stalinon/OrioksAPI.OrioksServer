@@ -1,4 +1,4 @@
-﻿using OrioksServer.Abstractions.Entities;
+using OrioksServer.Abstractions.Entities;
 using OrioksServer.Abstractions.Ports.Repositories;
 
 namespace OrioksServer.Persistance.Adapters.Database.Repositories
@@ -12,11 +12,9 @@ namespace OrioksServer.Persistance.Adapters.Database.Repositories
             _db = db;
         }
 
-        public override void Add(TeacherEntity entity)
+        public override bool Contains(TeacherEntity entity)
         {
-            var all = GetAll();
-            entity.Id = (all != null) ? all.Select(x => x.Id).Max() + 1 : 1;
-            base.Add(entity);
+            return FirstOrDefault(x => x.Name == entity.Name) != default;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 
 namespace OrioksServer.Domain.IServices
 {
@@ -19,7 +19,7 @@ namespace OrioksServer.Domain.IServices
         /// <param name="orderBy">Порядок вывода</param>
         /// <param name="includeProperties">Включение параметров</param>
         /// <param name="isTracking">Отслеживание запроса</param>
-        IEnumerable<T> GetAll(
+        IEnumerable<T>? GetAll(
             Expression<Func<T, bool>>? filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
             string includeProperties = null!,
