@@ -1,4 +1,4 @@
-﻿namespace OrioksServer.Abstractions.Entities
+namespace OrioksServer.Abstractions.Entities
 {
     /// <summary>
     ///     Доменная модель расписания для группы
@@ -16,12 +16,13 @@
         public string Semester { get; set; } = default!;
 
         /// <summary>
-        ///     День
+        ///     День недели
         /// </summary>
         public int Day { get; set; }
 
         /// <summary>
-        ///     Еще день
+        ///     Определяет день
+        ///     по числителю-знаменателю
         /// </summary>
         public int DayNumber { get; set; }
 
