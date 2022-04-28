@@ -11,5 +11,12 @@ namespace OrioksServer.Persistance.Adapters.Database.Repositories
         {
             _db = db; 
         }
+
+        public override bool Contains(ScheduleEntity entity)
+        {
+            return FirstOrDefault(x => x.TeacherName == entity.TeacherName && x.Auditory == entity.Auditory 
+                                && x.ClassName == entity.ClassName && x.Day == entity.Day && x.DayNumber == entity.DayNumber
+                                && x.GroupKey == entity.GroupKey) != default;
+        }
     }
 }

@@ -32,10 +32,12 @@ namespace OrioksServer.Controllers
         [HttpGet("")]
         [SwaggerOperation(OperationId = "ListTeachers")]
         [ProducesResponseType(typeof(TeacherListModel), 200)]
-        public IActionResult List()
+        public IActionResult List([FromQuery] TeacherNameRequest request)
         {
             var service = _serviceFactory.CreateTeacherService(_unitOfWork);
-            var entities = service.GetAll();
+
+            var entities = (request.Name == null) ? service.GetAll() : 
+                service.GetAll(x => x.Name.Contains(request.Name));
 
             var model = TeacherMapping.Map(entities);
             return Ok(model);

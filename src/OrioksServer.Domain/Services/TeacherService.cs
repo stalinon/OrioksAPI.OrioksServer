@@ -30,19 +30,13 @@ namespace OrioksServer.Domain.Services
         }
 
         /// <inheritdoc/>
-        public TeacherEntity FindByName(string name)
-        {
-            return GetAll(x => x.Name == name).FirstOrDefault()!;
-        }
-
-        /// <inheritdoc/>
         public TeacherEntity FirstOrDefault(Expression<Func<TeacherEntity, bool>>? filter = null, string includeProperties = null!, bool isTracking = true)
         {
             return _unitOfWork.Teachers.FirstOrDefault(filter, includeProperties, isTracking);
         }
 
         /// <inheritdoc/>
-        public IEnumerable<TeacherEntity> GetAll(Expression<Func<TeacherEntity, bool>>? filter = null, Func<IQueryable<TeacherEntity>, IOrderedQueryable<TeacherEntity>>? orderBy = null, string includeProperties = null!, bool isTracking = true)
+        public IEnumerable<TeacherEntity>? GetAll(Expression<Func<TeacherEntity, bool>>? filter = null, Func<IQueryable<TeacherEntity>, IOrderedQueryable<TeacherEntity>>? orderBy = null, string includeProperties = null!, bool isTracking = true)
         {
             return _unitOfWork.Teachers.GetAll(filter, orderBy, includeProperties, isTracking);
         }

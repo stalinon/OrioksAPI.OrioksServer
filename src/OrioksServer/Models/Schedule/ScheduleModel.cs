@@ -42,13 +42,13 @@ namespace OrioksServer.Models.Schedule
         ///     Со скольки
         /// </summary>
         [JsonPropertyName("from")]
-        public TimeOnly TimeFrom { get; set; }
+        public string TimeFrom { get; set; } = default!;
 
         /// <summary>
         ///     До скольки
         /// </summary>
         [JsonPropertyName("to")]
-        public TimeOnly TimeTo { get; set; }
+        public string TimeTo { get; set; } = default!;
 
         /// <summary>
         ///     Пара

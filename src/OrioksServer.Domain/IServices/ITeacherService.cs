@@ -1,4 +1,4 @@
-﻿using OrioksServer.Abstractions.Entities;
+using OrioksServer.Abstractions.Entities;
 
 namespace OrioksServer.Domain.IServices
 {
@@ -7,10 +7,5 @@ namespace OrioksServer.Domain.IServices
     /// </summary>
     public interface ITeacherService : IDomainService<TeacherEntity>
     {
-        /// <summary>
-        ///     Найти преподавателя по его 
-        ///     полному имени
-        /// </summary>
-        TeacherEntity FindByName(string name);
     }
 }

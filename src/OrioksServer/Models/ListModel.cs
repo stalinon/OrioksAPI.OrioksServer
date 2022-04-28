@@ -8,7 +8,7 @@ namespace OrioksServer.Models
     public class ListModel<T>
     {
         [JsonPropertyName("items")]
-        public T[] Items { get; set; } = Array.Empty<T>();
+        public T?[] Items { get; set; } = Array.Empty<T>();
 
         [JsonPropertyName("total")]
         public int TotalCount { get; set; }

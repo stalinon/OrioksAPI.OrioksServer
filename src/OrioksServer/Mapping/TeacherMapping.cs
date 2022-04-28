@@ -8,8 +8,10 @@ namespace OrioksServer.Mapping
     /// </summary>
     internal static class TeacherMapping
     {
-        public static TeacherModel Map(TeacherEntity entity)
+        public static TeacherModel? Map(TeacherEntity? entity)
         {
+            if (entity == null) return default;
+
             var model = new TeacherModel
             {
                 Auditory = entity.Auditory,
@@ -29,8 +31,10 @@ namespace OrioksServer.Mapping
             return model;
         }
 
-        public static TeacherListModel Map(IEnumerable<TeacherEntity> entities)
+        public static TeacherListModel? Map(IEnumerable<TeacherEntity>? entities)
         {
+            if (entities == null) return default;
+
             var model = new TeacherListModel
             {
                 Items = entities.Select(Map).ToArray(),
