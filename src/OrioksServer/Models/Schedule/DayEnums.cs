@@ -1,8 +1,12 @@
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
+
 namespace OrioksServer.Models.Schedule
 {
     /// <summary>
     ///     Типы дней
     /// </summary>
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum DayType
     {
         /// <summary>
@@ -24,5 +28,48 @@ namespace OrioksServer.Models.Schedule
         ///     Второй знаменатель
         /// </summary>
         SECOND_DENOMINATOR
+    }
+
+    
+    /// <summary>
+    ///   Дни недели
+    /// </summary>
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum DayOfWeek
+    {
+        /// <summary>
+        ///     Воскресенье
+        /// </summary>
+        SUNDAY,
+
+        /// <summary>
+        ///     Понедельник
+        /// </summary>
+        MONDAY,
+
+        /// <summary>
+        ///     Вторник
+        /// </summary>
+        TUESDAY,
+
+        /// <summary>
+        ///     Среда
+        /// </summary>
+        WEDNESDAY,
+
+        /// <summary>
+        ///     Четверг
+        /// </summary>
+        THURSDAY,
+
+        /// <summary>
+        ///     Пятница
+        /// </summary>
+        FRIDAY,
+
+        /// <summary>
+        ///     Суббота
+        /// </summary>
+        SATURDAY
     }
 }
