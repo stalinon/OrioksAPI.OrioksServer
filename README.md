@@ -34,8 +34,8 @@ GET /api/v1/schedule?teacherName=Пупкин
 
 ---
 
-- [docs/schedule.md](Контроллер расписаний)
-- [docs/teachers.md](Контроллер преподавателей)
+- [Контроллер расписаний](docs/schedule.md)
+- [Контроллер преподавателей](docs/teachers.md)
 
 ---
 
