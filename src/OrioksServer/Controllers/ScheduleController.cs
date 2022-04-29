@@ -81,20 +81,22 @@ namespace OrioksServer.Controllers
             var date = DateOnly.FromDateTime(DateTime.Today);
             var dayOfWeek = date.DayOfWeek;
             var dayNumber = GetDayNumber(date);
+            var nowTime = TimeOnly.FromDateTime(DateTime.Now);
 
-            var takenAuditories = service.GetAll(x => x.DayNumber == dayNumber
-                                                        && TimeOnly.FromDateTime(DateTime.Now) <= TimeOnly.FromDateTime(x.TimeTo) 
-                                                        && TimeOnly.FromDateTime(DateTime.Now) >= TimeOnly.FromDateTime(x.TimeFrom))?
-                                         .Where(x => ScheduleMapping.MapDayOfWeek(x.Day) == dayOfWeek)
-                                         .Select(x => x.Auditory)
-                                         .Distinct();
+
+            var pairs = service.GetAll(x => x.DayNumber == dayNumber && nowTime.IsBetween(TimeOnly.FromDateTime(x.TimeFrom), TimeOnly.FromDateTime(x.TimeTo)))?
+                               .Where(x => ScheduleMapping.MapDayOfWeek(x.Day) == dayOfWeek);
+
+            var takenAuditories = pairs?.Select(x => x.Auditory)
+                                       .Distinct();
 
             var entities = service.GetAll()?.Select(x => x.Auditory).Distinct().Where(x => takenAuditories != null ? !takenAuditories.Contains(x) : true);
 
             var model = new EmptyAuditoriesListModel
             {
                 Items = entities!.ToArray(),
-                TotalCount = entities!.Count()
+                TotalCount = entities!.Count(),
+                Pair = pairs?.First().Time ?? null
             };
             return Ok(model);
         }
