@@ -69,7 +69,7 @@ namespace OrioksServer.Controllers
         }
 
         /// <summary>
-        ///     Получить расписание
+        ///     Получить пустые аудитории
         /// </summary>
         [HttpGet("empty-auditories")]
         [SwaggerOperation(OperationId = "ListEmptyAuditories")]
