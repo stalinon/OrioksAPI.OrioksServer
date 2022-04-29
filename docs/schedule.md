@@ -67,17 +67,17 @@ contract ScheduleModel
 	//	время конца пары
 	to = string;
     
-    //	пара
-    time = string;
-    
-    //	название дисциплины
-    discipline = string;
-    
-    //	имя преподавателя
-    teacherName = string;
-    
-    //	ключ группы
-    group = string;
+        //	пара
+        time = string;
+
+        //	название дисциплины
+        discipline = string;
+
+        //	имя преподавателя
+        teacherName = string;
+
+        //	ключ группы
+        group = string;
 }
 ```
 
