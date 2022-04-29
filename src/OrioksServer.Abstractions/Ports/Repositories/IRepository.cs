@@ -10,12 +10,12 @@ namespace OrioksServer.Abstractions.Ports.Repositories
         /// <summary>
         ///     Найти по id
         /// </summary>
-        T Find(int id);
+        Task<T> FindAsync(int id, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Содержится ли в БД
         /// </summary>
-        bool Contains(T entity);
+        Task<bool> ContainsAsync(T entity, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Получить все объекты
@@ -37,16 +37,17 @@ namespace OrioksServer.Abstractions.Ports.Repositories
         /// <param name="filter">Фильтр</param>
         /// <param name="includeProperties">Включение параметров</param>
         /// <param name="isTracking">Отслеживание запроса</param>
-        T FirstOrDefault(
+        Task<T> FirstOrDefaultAsync(
             Expression<Func<T, bool>>? filter = null,                  
             string includeProperties = null!,                            
-            bool isTracking = true                                     
+            bool isTracking = true,
+            CancellationToken cancellationToken = default
             );
 
         /// <summary>
         ///     Добавить объект
         /// </summary>
-        void Add(T entity);
+        Task AddAsync(T entity, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Удалить объект
@@ -61,6 +62,6 @@ namespace OrioksServer.Abstractions.Ports.Repositories
         /// <summary>
         ///     Сохранить изменения
         /// </summary>
-        void Save();
+        Task SaveAsync(CancellationToken cancellationToken = default);
     }
 }

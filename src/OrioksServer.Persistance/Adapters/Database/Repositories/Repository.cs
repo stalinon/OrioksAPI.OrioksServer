@@ -19,26 +19,29 @@ namespace OrioksServer.Persistance.Adapters.Database.Repositories
         }
 
         /// <inheritdoc/>
-        public virtual void Add(T entity)
+        public virtual async Task AddAsync(T entity, CancellationToken cancellationToken = default)
         {
-            if (!Contains(entity))
-                dbSet.Add(entity);
+            if (!(await ContainsAsync(entity)))
+                await dbSet.AddAsync(entity, cancellationToken);
         }
 
         /// <inheritdoc/>
-        public virtual bool Contains(T entity)
+        public virtual async Task<bool> ContainsAsync(T entity, CancellationToken cancellationToken = default)
         {
-            return FirstOrDefault(x => x.Equals(entity)) != default;
+            return (await FirstOrDefaultAsync(x => x.Equals(entity), cancellationToken : cancellationToken)) != default;
         }
 
         /// <inheritdoc/>
-        public T Find(int id)
+        public async Task<T> FindAsync(int id, CancellationToken cancellationToken = default)
         {
-            return dbSet.Find(id) ?? default!;
+            return await dbSet.FindAsync(id, cancellationToken) ?? default!;
         }
 
         /// <inheritdoc/>
-        public T FirstOrDefault(Expression<Func<T, bool>>? filter = null, string includeProperties = null!, bool isTracking = true)
+        public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>>? filter = null, 
+                                                 string includeProperties = null!, 
+                                                 bool isTracking = true, 
+                                                 CancellationToken cancellationToken = default)
         {
             IQueryable<T> query = dbSet;
 
@@ -60,11 +63,13 @@ namespace OrioksServer.Persistance.Adapters.Database.Repositories
                 query = query.AsNoTracking();
             }
 
-            return query.FirstOrDefault() ?? default!;
+            return await query.FirstOrDefaultAsync(cancellationToken) ?? default!;
         }
 
         /// <inheritdoc/>
-        public IEnumerable<T>? GetAll(Expression<Func<T, bool>>? filter = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, string includeProperties = null!, bool isTracking = true)
+        public IEnumerable<T>? GetAll(Expression<Func<T, bool>>? filter = null, 
+                                      Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+                                      string includeProperties = null!, bool isTracking = true)
         {
             IQueryable<T> query = dbSet;
 
@@ -107,9 +112,9 @@ namespace OrioksServer.Persistance.Adapters.Database.Repositories
         }
 
         /// <inheritdoc/>
-        public void Save()
+        public async Task SaveAsync(CancellationToken cancellationToken = default)
         {
-            _db.SaveChanges();
+            await _db.SaveChangesAsync(cancellationToken);
         }
     }
 }

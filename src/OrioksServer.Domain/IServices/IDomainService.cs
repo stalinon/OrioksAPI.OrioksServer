@@ -10,7 +10,7 @@ namespace OrioksServer.Domain.IServices
         /// <summary>
         ///     Найти по id
         /// </summary>
-        T Find(int id);
+        Task<T> FindAsync(int id, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Получить все объекты
@@ -32,25 +32,25 @@ namespace OrioksServer.Domain.IServices
         /// <param name="filter">Фильтр</param>
         /// <param name="includeProperties">Включение параметров</param>
         /// <param name="isTracking">Отслеживание запроса</param>
-        T FirstOrDefault(
+        Task<T> FirstOrDefaultAsync(
             Expression<Func<T, bool>>? filter = null,
             string includeProperties = null!,
-            bool isTracking = true
+            bool isTracking = true, CancellationToken cancellationToken = default
             );
 
         /// <summary>
         ///     Добавить объект
         /// </summary>
-        void Add(T entity);
+        Task AddAsync(T entity, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Удалить объект
         /// </summary>
-        void Remove(T entity);
+        Task RemoveAsync(T entity, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Удалить несколько объектов
         /// </summary>
-        void RemoveRange(IEnumerable<T> entity);
+        Task RemoveRangeAsync(IEnumerable<T> entity, CancellationToken cancellationToken = default);
     }
 }
