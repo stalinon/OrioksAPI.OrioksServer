@@ -34,42 +34,42 @@ contract TeacherModel
 	id = int;
 	
 	//	Полное имя преподавателя
-    name = string;
+        name = string;
 	
 	//	Степень
-    degree = string?;
+        degree = string?;
 	
 	//	Кафедра
-    chapter = string?;
+        chapter = string?;
     
-    //	Должность
-    position = string?;
-    
-    //	Номер телефона
-    phoneNumber = string?;
-    
-    //	Электронная почта
-    email = string?;
-    
-    //	Кафедра
-    chapter = string?;
+        //	Должность
+        position = string?;
 
-	//	Аудитория
-    auditory = string?;
-    
-    //	URL изображения
-    imageUrl = string?;
-    
-    //	Биография
-    biography = string?;
-    
-    //	Кафедра
-    chapter = string?;
-    
-    //	Курсы
-    courses = string?;
-    
-    //	Исследования, публикации
-    Science = string?;
+        //	Номер телефона
+        phoneNumber = string?;
+
+        //	Электронная почта
+        email = string?;
+
+        //	Кафедра
+        chapter = string?;
+
+        //	Аудитория
+        auditory = string?;
+
+        //	URL изображения
+        imageUrl = string?;
+
+        //	Биография
+        biography = string?;
+
+        //	Кафедра
+        chapter = string?;
+
+        //	Курсы
+        courses = string?;
+
+        //	Исследования, публикации
+        Science = string?;
 }
 ```
