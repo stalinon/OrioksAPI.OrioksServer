@@ -17,43 +17,47 @@ namespace OrioksServer.Domain.Services
         }
 
         /// <inheritdoc/>
-        public void Add(ScheduleEntity entity)
+        public async Task AddAsync(ScheduleEntity entity, CancellationToken cancellationToken = default)
         {
-            _unitOfWork.Schedules.Add(entity);
-            _unitOfWork.Schedules.Save();
+            await _unitOfWork.Schedules.AddAsync(entity, cancellationToken);
+            await _unitOfWork.Schedules.SaveAsync(cancellationToken);
         }
 
         /// <inheritdoc/>
-        public ScheduleEntity Find(int id)
+        public async Task<ScheduleEntity> FindAsync(int id, CancellationToken cancellationToken = default)
         {
-            return _unitOfWork.Schedules.Find(id);
+            return await _unitOfWork.Schedules.FindAsync(id, cancellationToken);
         }
 
 
         /// <inheritdoc/>
-        public ScheduleEntity FirstOrDefault(Expression<Func<ScheduleEntity, bool>>? filter = null, string includeProperties = null!, bool isTracking = true)
+        public async Task<ScheduleEntity> FirstOrDefaultAsync(Expression<Func<ScheduleEntity, bool>>? filter = null, 
+                                                              string includeProperties = null!, 
+                                                              bool isTracking = true, CancellationToken cancellationToken = default)
         {
-            return _unitOfWork.Schedules.FirstOrDefault(filter, includeProperties, isTracking);
+            return await _unitOfWork.Schedules.FirstOrDefaultAsync(filter, includeProperties, isTracking, cancellationToken);
         }
 
         /// <inheritdoc/>
-        public IEnumerable<ScheduleEntity>? GetAll(Expression<Func<ScheduleEntity, bool>>? filter = null, Func<IQueryable<ScheduleEntity>, IOrderedQueryable<ScheduleEntity>>? orderBy = null, string includeProperties = null!, bool isTracking = true)
+        public IEnumerable<ScheduleEntity>? GetAll(Expression<Func<ScheduleEntity, bool>>? filter = null, 
+                                                   Func<IQueryable<ScheduleEntity>, IOrderedQueryable<ScheduleEntity>>? orderBy = null, 
+                                                   string includeProperties = null!, bool isTracking = true)
         {
             return _unitOfWork.Schedules.GetAll(filter, orderBy, includeProperties, isTracking);
         }
 
         /// <inheritdoc/>
-        public void Remove(ScheduleEntity entity)
+        public async Task RemoveAsync(ScheduleEntity entity, CancellationToken cancellationToken = default)
         {
             _unitOfWork.Schedules.Remove(entity);
-            _unitOfWork.Schedules.Save();
+            await _unitOfWork.Schedules.SaveAsync(cancellationToken);
         }
 
         /// <inheritdoc/>
-        public void RemoveRange(IEnumerable<ScheduleEntity> entity)
+        public async Task RemoveRangeAsync(IEnumerable<ScheduleEntity> entity, CancellationToken cancellationToken = default)
         {
             _unitOfWork.Schedules.RemoveRange(entity);
-            _unitOfWork.Schedules.Save();
+            await _unitOfWork.Schedules.SaveAsync(cancellationToken);
         }
     }
 }

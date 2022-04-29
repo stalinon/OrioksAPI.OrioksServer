@@ -39,17 +39,17 @@ namespace OrioksServer.Controllers
             var service = _serviceFactory.CreateScheduleService(_unitOfWork);
 
             var date = DateOnly.Parse(request.Date ?? DateOnly.FromDateTime(DateTime.Today).ToString());
-            var dayOfWeek = date.DayOfWeek;
+            var dayOfWeek = EnumMappings.MapDayOfWeek(date.DayOfWeek);
             var dayNumber = GetDayNumber(date);
             var className = request.Name ?? default;
             var teacherName = request.TeacherName ?? default;
 
-            var entities = service.GetAll(GetFilter(dayOfWeek, dayNumber, className, teacherName))?.Where(x => ScheduleMapping.MapDayOfWeek(x.Day) == dayOfWeek);
+            var entities = service.GetAll(GetFilter(dayOfWeek, dayNumber, className, teacherName))?.Where(x => EnumMappings.MapDayOfWeek(x.Day) == dayOfWeek);
 
             var model = ScheduleMapping.Map(entities);
             return Ok(model);
 
-            static Expression<Func<ScheduleEntity, bool>> GetFilter(DayOfWeek dayOfWeek, int dayNumber, string? className, string? teacherName)
+            static Expression<Func<ScheduleEntity, bool>> GetFilter(Models.Schedule.DayOfWeek dayOfWeek, int dayNumber, string? className, string? teacherName)
             {
                 Expression<Func<ScheduleEntity, bool>>? func;
 
@@ -66,10 +66,11 @@ namespace OrioksServer.Controllers
                    && x.ClassName.Contains(className) && x.TeacherName.Contains(teacherName!);
                 return func;
             }
-        }
+     
+            }
 
         /// <summary>
-        ///     Получить расписание
+        ///     Получить пустые аудитории
         /// </summary>
         [HttpGet("empty-auditories")]
         [SwaggerOperation(OperationId = "ListEmptyAuditories")]
@@ -79,22 +80,24 @@ namespace OrioksServer.Controllers
             var service = _serviceFactory.CreateScheduleService(_unitOfWork);
 
             var date = DateOnly.FromDateTime(DateTime.Today);
-            var dayOfWeek = date.DayOfWeek;
+            var dayOfWeek = EnumMappings.MapDayOfWeek(date.DayOfWeek);
             var dayNumber = GetDayNumber(date);
+            var nowTime = TimeOnly.FromDateTime(DateTime.Now);
 
-            var takenAuditories = service.GetAll(x => x.DayNumber == dayNumber
-                                                        && TimeOnly.FromDateTime(DateTime.Now) <= TimeOnly.FromDateTime(x.TimeTo) 
-                                                        && TimeOnly.FromDateTime(DateTime.Now) >= TimeOnly.FromDateTime(x.TimeFrom))?
-                                         .Where(x => ScheduleMapping.MapDayOfWeek(x.Day) == dayOfWeek)
-                                         .Select(x => x.Auditory)
-                                         .Distinct();
+
+            var pairs = service.GetAll(x => x.DayNumber == dayNumber && nowTime.IsBetween(TimeOnly.FromDateTime(x.TimeFrom), TimeOnly.FromDateTime(x.TimeTo)))?
+                               .Where(x => EnumMappings.MapDayOfWeek(x.Day) == dayOfWeek);
+
+            var takenAuditories = pairs?.Select(x => x.Auditory)
+                                       .Distinct();
 
             var entities = service.GetAll()?.Select(x => x.Auditory).Distinct().Where(x => takenAuditories != null ? !takenAuditories.Contains(x) : true);
 
             var model = new EmptyAuditoriesListModel
             {
                 Items = entities!.ToArray(),
-                TotalCount = entities!.Count()
+                TotalCount = entities!.Count(),
+                Pair = pairs?.First().Time ?? null
             };
             return Ok(model);
         }

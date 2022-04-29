@@ -17,42 +17,48 @@ namespace OrioksServer.Domain.Services
         }
 
         /// <inheritdoc/>
-        public void Add(TeacherEntity entity)
+        public async Task AddAsync(TeacherEntity entity, CancellationToken cancellationToken = default)
         {
-            _unitOfWork.Teachers.Add(entity);
-            _unitOfWork.Teachers.Save();
+            await _unitOfWork.Teachers.AddAsync(entity, cancellationToken);
+            await _unitOfWork.Teachers.SaveAsync(cancellationToken);
         }
 
         /// <inheritdoc/>
-        public TeacherEntity Find(int id)
+        public async Task<TeacherEntity> FindAsync(int id, CancellationToken cancellationToken = default)
         {
-            return _unitOfWork.Teachers.Find(id);
+            return await _unitOfWork.Teachers.FindAsync(id, cancellationToken);
         }
 
         /// <inheritdoc/>
-        public TeacherEntity FirstOrDefault(Expression<Func<TeacherEntity, bool>>? filter = null, string includeProperties = null!, bool isTracking = true)
+        public async Task<TeacherEntity> FirstOrDefaultAsync(Expression<Func<TeacherEntity, bool>>? filter = null, 
+                                                             string includeProperties = null!, 
+                                                             bool isTracking = true, CancellationToken cancellationToken = default)
         {
-            return _unitOfWork.Teachers.FirstOrDefault(filter, includeProperties, isTracking);
+            return await _unitOfWork.Teachers.FirstOrDefaultAsync(filter, includeProperties, isTracking, cancellationToken);
         }
 
         /// <inheritdoc/>
-        public IEnumerable<TeacherEntity>? GetAll(Expression<Func<TeacherEntity, bool>>? filter = null, Func<IQueryable<TeacherEntity>, IOrderedQueryable<TeacherEntity>>? orderBy = null, string includeProperties = null!, bool isTracking = true)
+        public IEnumerable<TeacherEntity>? GetAll(Expression<Func<TeacherEntity, bool>>? filter = null, 
+                                                  Func<IQueryable<TeacherEntity>, 
+                                                  IOrderedQueryable<TeacherEntity>>? orderBy = null, 
+                                                  string includeProperties = null!, 
+                                                  bool isTracking = true)
         {
             return _unitOfWork.Teachers.GetAll(filter, orderBy, includeProperties, isTracking);
         }
 
         /// <inheritdoc/>
-        public void Remove(TeacherEntity entity)
+        public async Task RemoveAsync(TeacherEntity entity, CancellationToken cancellationToken = default)
         {
             _unitOfWork.Teachers.Remove(entity);
-            _unitOfWork.Teachers.Save();
+            await _unitOfWork.Teachers.SaveAsync(cancellationToken);
         }
 
         /// <inheritdoc/>
-        public void RemoveRange(IEnumerable<TeacherEntity> entity)
+        public async Task RemoveRangeAsync(IEnumerable<TeacherEntity> entity, CancellationToken cancellationToken = default)
         {
             _unitOfWork.Teachers.RemoveRange(entity);
-            _unitOfWork.Teachers.Save();
+            await _unitOfWork.Teachers.SaveAsync(cancellationToken);
         }
     }
 }

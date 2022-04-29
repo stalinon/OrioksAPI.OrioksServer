@@ -12,9 +12,9 @@ namespace OrioksServer.Persistance.Adapters.Database.Repositories
             _db = db;
         }
 
-        public override bool Contains(TeacherEntity entity)
+        public override async Task<bool> ContainsAsync(TeacherEntity entity, CancellationToken cancellationToken = default)
         {
-            return FirstOrDefault(x => x.Name == entity.Name) != default;
+            return await FirstOrDefaultAsync(x => x.Name == entity.Name) != default;
         }
     }
 }

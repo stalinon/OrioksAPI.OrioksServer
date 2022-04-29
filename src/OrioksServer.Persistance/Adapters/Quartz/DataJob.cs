@@ -30,16 +30,16 @@ namespace OrioksServer.Persistance.Adapters.Quartz
 
                 foreach (var item in teachers)
                 {
-                    uof.Teachers.Add(item);
+                    await uof.Teachers.AddAsync(item);
                 }
 
                 foreach (var item in schedules)
                 {
-                    uof.Schedules.Add(item);
+                    await uof.Schedules.AddAsync(item);
                 }
-                
-                uof.Teachers.Save();
-                uof.Schedules.Save();
+
+                await uof.Teachers.SaveAsync();
+                await uof.Schedules.SaveAsync();
             }
         }
     }

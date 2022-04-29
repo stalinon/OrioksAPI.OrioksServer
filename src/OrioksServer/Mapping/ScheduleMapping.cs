@@ -23,8 +23,8 @@ namespace OrioksServer.Mapping
                 Time = entity.Time,
                 TimeFrom = TimeOnly.FromDateTime(entity.TimeFrom).ToString(),
                 TimeTo = TimeOnly.FromDateTime(entity.TimeTo).ToString(),
-                DayType = MapDayType(entity.DayNumber),
-                WeekDay = MapDayOfWeek(entity.Day)
+                DayType = EnumMappings.MapDayType(entity.DayNumber),
+                WeekDay = EnumMappings.MapDayOfWeek(entity.Day)
             };
 
             return model;
@@ -42,29 +42,5 @@ namespace OrioksServer.Mapping
 
             return model;
         }
-
-
-        public static DayType MapDayType(int dayType) =>
-            dayType switch
-            {
-                0 => DayType.FIRST_NUMIRATOR,
-                1 => DayType.SECOND_NUMIRATOR,
-                2 => DayType.FIRST_DENOMINATOR,
-                3 => DayType.SECOND_DENOMINATOR,
-                _ => throw new ArgumentOutOfRangeException(nameof(dayType)),
-            };
-
-        public static DayOfWeek MapDayOfWeek(int dayOfWeek) =>
-            dayOfWeek switch
-            {
-                1 => DayOfWeek.Monday,
-                2 => DayOfWeek.Tuesday,
-                3 => DayOfWeek.Wednesday,
-                4 => DayOfWeek.Thursday,
-                5 => DayOfWeek.Friday,
-                6 => DayOfWeek.Saturday,
-                7 => DayOfWeek.Sunday,
-                _ => throw new ArgumentOutOfRangeException(nameof(dayOfWeek)),
-            };
     }
 }
