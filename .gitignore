@@ -5,3 +5,4 @@ obj
 node_modules
 local.env
 artifacts/**
+appsettings.json

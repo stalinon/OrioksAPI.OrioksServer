@@ -31,7 +31,9 @@ static WebApplication ConfigureWebApplication(WebApplicationBuilder builder)
     });
     AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-    builder.WebHost.ConfigureKestrel(options => options.ListenLocalhost(int.Parse(url.Split(':').Last())));
+    builder.WebHost.ConfigureKestrel(options => {
+        options.ListenAnyIP(int.Parse(url.Split(':').Last()));
+    });
 
     builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
     builder.Services.AddSingleton<IDomainServiceFactory, DomainServiceFactory>();
