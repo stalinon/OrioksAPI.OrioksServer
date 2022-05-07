@@ -1,14 +1,18 @@
 {
-    "profiles": {
-        "OrioksServer": {
-            "commandName": "Project",
-            "launchBrowser": true,
-            "launchUrl": "swagger",
-            "environmentVariables": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:5000"
-            },
-            "dotnetRunMessages": true
-        }
+  "profiles": {
+    "OrioksServer": {
+      "commandName": "Project",
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://localhost:5000"
+      },
+      "dotnetRunMessages": true
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchUrl": "http://localhost:5000/swagger",
+      "publishAllPorts": true
     }
+  }
 }

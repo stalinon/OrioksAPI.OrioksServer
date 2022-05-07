@@ -1,4 +1,3 @@
-using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using OrioksServer;
 using OrioksServer.Abstractions.Ports;
@@ -17,14 +16,14 @@ static WebApplication ConfigureWebApplication(WebApplicationBuilder builder)
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
-    
-    var connectionString = Env.GetString(ConfigKeys.CONNECTION_STRING);
+
+    var connectionString = builder.Configuration.GetConnectionString(ConfigKeys.CONNECTION_STRING);
     if (string.IsNullOrEmpty(connectionString))
     {
         throw new Exception($"Missing ${ConfigKeys.CONNECTION_STRING}");
     }
 
-    var url = Env.GetString(ConfigKeys.ASPNETCORE_URLS);
+    var url = builder.Configuration.GetValue<string>(ConfigKeys.ASPNETCORE_URLS);
 
     builder.Services.AddDbContext<AppDbContext>(options =>
     {
@@ -69,11 +68,9 @@ static void StartApplication(WebApplication app)
 
     app.MapControllers();
 
-    var url = Env.GetString("ASPNETCORE_URLS");
+    var url = app.Configuration.GetValue<string>(ConfigKeys.ASPNETCORE_URLS);
     app.Run(url);
 }
-
-Env.Load("../../local.env");
 
 var app = ConfigureWebApplication(WebApplication.CreateBuilder(args));
 
