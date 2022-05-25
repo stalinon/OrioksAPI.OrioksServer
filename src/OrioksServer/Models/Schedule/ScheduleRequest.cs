@@ -24,5 +24,11 @@ namespace OrioksServer.Models.Schedule
         /// </summary>
         [FromQuery(Name = "teacherName")]
         public string? TeacherName { get; set; }
+
+        /// <summary>
+        ///     Идентификатор группы
+        /// </summary>
+        [FromQuery(Name = "gropKey")]
+        public string? GroupKey { get; set; }
     }
 }

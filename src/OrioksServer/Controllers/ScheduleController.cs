@@ -41,32 +41,22 @@ namespace OrioksServer.Controllers
             var date = DateOnly.Parse(request.Date ?? DateOnly.FromDateTime(DateTime.Today).ToString());
             var dayOfWeek = EnumMappings.MapDayOfWeek(date.DayOfWeek);
             var dayNumber = GetDayNumber(date);
-            var className = request.Name ?? default;
-            var teacherName = request.TeacherName ?? default;
+            var className = request.Name ?? string.Empty;
+            var teacherName = request.TeacherName ?? string.Empty;
+            var groupKey = request.GroupKey ?? string.Empty;
 
-            var entities = service.GetAll(GetFilter(dayOfWeek, dayNumber, className, teacherName))?.Where(x => EnumMappings.MapDayOfWeek(x.Day) == dayOfWeek);
+            var entities = service.GetAll(GetFilter(dayOfWeek, dayNumber, className, teacherName, groupKey))?.Where(x => EnumMappings.MapDayOfWeek(x.Day) == dayOfWeek);
 
             var model = ScheduleMapping.Map(entities);
             return Ok(model);
 
-            static Expression<Func<ScheduleEntity, bool>> GetFilter(Models.Schedule.DayOfWeek dayOfWeek, int dayNumber, string? className, string? teacherName)
-            {
-                Expression<Func<ScheduleEntity, bool>>? func;
-
-                if (className == null && teacherName == null)
-                    func = x => x.DayNumber == dayNumber;
-                else if (className == null)
-                    func = x => x.DayNumber == dayNumber
-                    && x.TeacherName.Contains(teacherName!);
-                else if (teacherName == null)
-                    func = x => x.DayNumber == dayNumber
-                    && x.ClassName.Contains(className);
-                else
-                    func = x => x.DayNumber == dayNumber
-                   && x.ClassName.Contains(className) && x.TeacherName.Contains(teacherName!);
-                return func;
-            }
-     
+            static Expression<Func<ScheduleEntity, bool>> GetFilter(Models.Schedule.DayOfWeek dayOfWeek, 
+                int dayNumber, 
+                string className, 
+                string teacherName,
+                string groupKey) => x => x.DayNumber == dayNumber && x.ClassName.Contains(className!) && 
+                                    x.TeacherName.Contains(teacherName!) && x.GroupKey.Contains(groupKey!);
+            
             }
 
         /// <summary>
