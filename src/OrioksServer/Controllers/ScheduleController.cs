@@ -79,7 +79,7 @@ namespace OrioksServer.Controllers
             var date = DateOnly.FromDateTime(DateTime.Today);
             var dayOfWeek = EnumMappings.MapDayOfWeek(date.DayOfWeek);
             var dayNumber = GetDayNumber(date);
-            var nowTime = TimeOnly.FromDateTime(DateTime.Now);
+            var nowTime = TimeOnly.FromDateTime(DateTime.UtcNow.AddHours(3));
 
             var filter = (Expression<Func<ScheduleEntity, bool>>)
                 (x => x.DayNumber == dayNumber 
