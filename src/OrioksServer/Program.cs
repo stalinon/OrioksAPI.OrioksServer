@@ -62,7 +62,8 @@ static void StartApplication(WebApplication app)
 
     app.MapControllers();
 
-    app.Run();
+    var url = app.Configuration.GetValue<string>(ConfigKeys.ASPNETCORE_URLS);
+    app.Run(url);
 }
 
 var app = ConfigureWebApplication(WebApplication.CreateBuilder(args));
