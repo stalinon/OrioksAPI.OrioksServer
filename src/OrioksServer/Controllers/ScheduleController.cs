@@ -95,8 +95,8 @@ namespace OrioksServer.Controllers
 
             var model = new EmptyAuditoriesListModel
             {
-                Items = entities!.ToArray(),
-                TotalCount = entities!.Count(),
+                Items = entities?.ToArray() ?? Array.Empty<string>(),
+                TotalCount = entities?.Count() ?? 0,
                 Pair = pairs?.First().Time ?? null
             };
             return Ok(model);

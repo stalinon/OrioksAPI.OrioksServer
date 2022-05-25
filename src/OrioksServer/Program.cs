@@ -23,15 +23,11 @@ static WebApplication ConfigureWebApplication(WebApplicationBuilder builder)
         throw new Exception($"Missing ${ConfigKeys.CONNECTION_STRING}");
     }
 
-    var url = builder.Configuration.GetValue<string>(ConfigKeys.ASPNETCORE_URLS);
-
     builder.Services.AddDbContext<AppDbContext>(options =>
     {
         options.UseNpgsql(connectionString);
     });
     AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-
-    builder.WebHost.ConfigureKestrel(options => options.ListenLocalhost(int.Parse(url.Split(':').Last())));
 
     builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
     builder.Services.AddSingleton<IDomainServiceFactory, DomainServiceFactory>();
@@ -62,14 +58,11 @@ static void StartApplication(WebApplication app)
         app.UseSwaggerUI();
     }
 
-    app.UseHttpsRedirection();
-
     app.UseAuthorization();
 
     app.MapControllers();
 
-    var url = app.Configuration.GetValue<string>(ConfigKeys.ASPNETCORE_URLS);
-    app.Run(url);
+    app.Run();
 }
 
 var app = ConfigureWebApplication(WebApplication.CreateBuilder(args));

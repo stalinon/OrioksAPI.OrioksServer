@@ -1,0 +1,38 @@
+version: '3.4'
+
+services:
+  orioksserver:
+    image: ${DOCKER_REGISTRY-}orioksserver
+    build:
+      context: .
+      dockerfile: src/OrioksServer/Dockerfile
+    env_file:
+      - server.env
+    ports:
+      - "127.0.0.1:5000:5000"
+    networks:
+      - os_db_network
+  postgres_db:
+    image: postgres
+    env_file:
+      - postgres.env
+    ports:
+      - "127.0.0.1:5444:5432"
+    volumes:
+      - os_postgres_volume:/var/lib/postgresql/data
+    networks:
+      - os_db_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+networks:
+  os_db_network:
+    external: true
+
+volumes:
+  os_postgres_volume:
