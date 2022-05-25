@@ -45,9 +45,16 @@ namespace OrioksServer.Controllers
             var teacherName = request.TeacherName ?? string.Empty;
             var groupKey = request.GroupKey ?? string.Empty;
 
-            var entities = service.GetAll(GetFilter(dayOfWeek, dayNumber, className, teacherName, groupKey))?.Where(x => EnumMappings.MapDayOfWeek(x.Day) == dayOfWeek);
+            var filter = GetFilter(dayOfWeek, dayNumber, className, teacherName, groupKey);
+            var entities = service.GetAll(filter)?.Where(x => EnumMappings.MapDayOfWeek(x.Day) == dayOfWeek);
 
             var model = ScheduleMapping.Map(entities);
+
+            if (model == null || model.TotalCount == 0)
+            {
+                NotFound();
+            }
+
             return Ok(model);
 
             static Expression<Func<ScheduleEntity, bool>> GetFilter(Models.Schedule.DayOfWeek dayOfWeek, 
@@ -74,14 +81,21 @@ namespace OrioksServer.Controllers
             var dayNumber = GetDayNumber(date);
             var nowTime = TimeOnly.FromDateTime(DateTime.Now);
 
+            var filter = (Expression<Func<ScheduleEntity, bool>>)
+                (x => x.DayNumber == dayNumber 
+                      && nowTime.IsBetween(TimeOnly.FromDateTime(x.TimeFrom), TimeOnly.FromDateTime(x.TimeTo)));
 
-            var pairs = service.GetAll(x => x.DayNumber == dayNumber && nowTime.IsBetween(TimeOnly.FromDateTime(x.TimeFrom), TimeOnly.FromDateTime(x.TimeTo)))?
+            var pairs = service.GetAll(filter)?
                                .Where(x => EnumMappings.MapDayOfWeek(x.Day) == dayOfWeek);
 
             var takenAuditories = pairs?.Select(x => x.Auditory)
-                                       .Distinct();
+                                        .Distinct();
 
-            var entities = service.GetAll()?.Select(x => x.Auditory).Distinct().Where(x => takenAuditories != null ? !takenAuditories.Contains(x) : true);
+            var entities = service
+                .GetAll()?
+                .Select(x => x.Auditory)
+                .Distinct()
+                .Where(x => takenAuditories != null ? !takenAuditories.Contains(x) : true);
 
             var model = new EmptyAuditoriesListModel
             {
@@ -89,6 +103,12 @@ namespace OrioksServer.Controllers
                 TotalCount = entities?.Count() ?? 0,
                 Pair = pairs?.First().Time ?? null
             };
+
+            if (model == null || model.TotalCount == 0)
+            {
+                NotFound();
+            }
+
             return Ok(model);
         }
 
@@ -98,6 +118,7 @@ namespace OrioksServer.Controllers
             var delta = date.ToDateTime(TimeOnly.Parse("00:01 PM")) - semesterStart;
             var currentWeek = (delta.Days / 7) + 1;
             var dayNumber = (currentWeek - 1) % 4;
+
             return dayNumber;
         }
     }
