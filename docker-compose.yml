@@ -9,7 +9,7 @@ services:
     env_file:
       - server.env
     ports:
-      - "5000:5000"
+      - "127.0.0.1:5000:5000"
     networks:
       - os_db_network
   postgres_db:
@@ -17,7 +17,7 @@ services:
     env_file:
       - postgres.env
     ports:
-      - "5445:5432"
+      - "127.0.0.1:5444:5432"
     volumes:
       - os_postgres_volume:/var/lib/postgresql/data
     networks:
@@ -32,6 +32,7 @@ services:
 
 networks:
   os_db_network:
+    external: true
 
 volumes:
   os_postgres_volume:
