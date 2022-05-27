@@ -1,5 +1,5 @@
 # OrioksAPI.OrioksServer
-Сервер хранения и обработки данных, полученных с OrioksAPI.OrioksDecorator
+Сервер хранения и обработки данных, полученных с [OrioksAPI.OrioksDecorator](https://github.com/stalinon/OrioksAPI.OrioksDecorator)
 
 ![workflow](https://github.com/stalinon/OrioksAPI.OrioksServer/workflows/.NET/badge.svg)
 
