@@ -28,7 +28,7 @@ namespace OrioksServer.Models.Schedule
         /// <summary>
         ///     Идентификатор группы
         /// </summary>
-        [FromQuery(Name = "gropKey")]
+        [FromQuery(Name = "groupKey")]
         public string? GroupKey { get; set; }
     }
 }
