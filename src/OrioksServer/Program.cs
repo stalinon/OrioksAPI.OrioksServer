@@ -30,6 +30,8 @@ static void StartApplication(WebApplication app)
         throw;
     }
 
+    app.UseSwaggerConfig();
+
     app.MapControllers();
 
     app.Run(Environment.GetEnvironmentVariable(ConfigKeys.ASPNETCORE_URLS));

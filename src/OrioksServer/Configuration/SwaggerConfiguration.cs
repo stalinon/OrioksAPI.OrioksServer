@@ -11,7 +11,6 @@ internal static class SwaggerConfiguration
     /// <inheritdoc cref="SwaggerConfiguration"/>
     public static void UseSwaggerConfig(this WebApplication app)
     {
-        app.UseSwaggerConfig();
         app.UseSwagger();
         app.UseSwaggerUI(options =>
         {
