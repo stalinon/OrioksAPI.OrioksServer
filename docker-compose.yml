@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   orioksserver:
-    image: ${DOCKER_REGISTRY-}orioksserver
+    image: stalinon/orioksserver
     build:
       context: .
       dockerfile: src/OrioksServer/Dockerfile

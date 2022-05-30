@@ -14,5 +14,10 @@ namespace OrioksServer
         ///     Строка подключения к БД
         /// </summary>
         public const string CONNECTION_STRING = nameof(CONNECTION_STRING);
+
+        /// <summary>
+        ///     Путь к .env файлу
+        /// </summary>
+        public const string ENV_PATH = "../../server.env";
     }
 }

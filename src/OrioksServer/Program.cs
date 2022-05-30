@@ -4,20 +4,20 @@ using OrioksServer.Abstractions.Ports;
 using OrioksServer.Abstractions.Ports.Quartz;
 using OrioksServer.Domain.IServices;
 using OrioksServer.Domain.Services;
+using OrioksServer.Helpers;
 using OrioksServer.Persistance.Adapters.Database;
 using OrioksServer.Persistance.Adapters.Quartz;
 using Quartz.Spi;
 
 static WebApplication ConfigureWebApplication(WebApplicationBuilder builder)
 {
-    // Add services to the container.
+    DotEnv.Load();
+
     builder.Services.AddControllers();
-    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
-
-    var connectionString = builder.Configuration.GetConnectionString(ConfigKeys.CONNECTION_STRING);
+    var connectionString = Environment.GetEnvironmentVariable(ConfigKeys.CONNECTION_STRING);
     if (string.IsNullOrEmpty(connectionString))
     {
         throw new Exception($"Missing ${ConfigKeys.CONNECTION_STRING}");
@@ -62,7 +62,7 @@ static void StartApplication(WebApplication app)
 
     app.MapControllers();
 
-    var url = app.Configuration.GetValue<string>(ConfigKeys.ASPNETCORE_URLS);
+    var url = Environment.GetEnvironmentVariable(ConfigKeys.ASPNETCORE_URLS);
     app.Run(url);
 }
 
