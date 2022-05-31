@@ -23,3 +23,11 @@ jobs:
       run: dotnet build --no-restore OrioksServer.sln
     - name: Test
       run: dotnet test --no-build --verbosity normal OrioksServer.sln
+    - name: Trigger next workflow
+      if: success()
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.REPO_GHA_PAT }}
+        repository: ${{ github.repository }}
+        event-type: trigger-workflow-2
+        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'

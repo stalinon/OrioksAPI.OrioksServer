@@ -1,8 +1,8 @@
 name: Docker Image Builder
 
 on:
-  push:
-    branches: [ master ]
+  repository_dispatch:
+    types: [trigger-workflow-2]
 
 jobs:
 
@@ -17,5 +17,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.client_payload.sha }}
     - name: Build and push
       run: chmod +x dockerize.sh; ./dockerize.sh $DOCKER_LOGIN $DOCKER_PASSWORD $DOCKER_IMAGE

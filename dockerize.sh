@@ -13,7 +13,7 @@ echo "TAG = $tag"
 
 latest=$image:latest
 
-docker build -f src/OrioksServer/Dockerfile -t $tag -t latest .  
+docker build -f src/OrioksServer/Dockerfile -t $tag -t $latest .  
 
 echo "$password" | docker login -u "$login" --password-stdin  
 docker push $image
