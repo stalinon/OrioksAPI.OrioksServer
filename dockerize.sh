@@ -1,9 +1,9 @@
 #!/bin/bash  
   
 
-login=${{ secrets.DOCKERHUB_LOGIN }}
-password=${{ secrets.DOCKERHUB_PASSWORD }}
-image="$login"/${{ secrets.DOCKERHUB_IMAGE }}
+login="$DOCKER_LOGIN"
+password="$DOCKER_PASSWORD"
+image="$login"/"$DOCKER_IMAGE"
 
 echo "IMAGE_NAME = $image"
 timestamp=$(date +%Y%m%d%H%M%S)  
