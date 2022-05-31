@@ -1,0 +1,21 @@
+name: Docker Image Builder
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    
+    env:
+      DOCKER_IMAGE: ${{ secrets.DOCKERHUB_IMAGE }}
+      DOCKER_LOGIN: ${{ secrets.DOCKERHUB_LOGIN }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build and push
+      run: chmod +x dockerize.sh; ./dockerize.sh
