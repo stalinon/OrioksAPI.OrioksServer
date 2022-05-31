@@ -1,12 +1,20 @@
-name: Deploy project on server
+name: Deploy
 
 on:
   repository_dispatch:
-    types: [Deploy project on server]
+    types: [Deploy]
 
-steps:
-  - name: Install SSH Key
-    uses: shimataro/ssh-key-action@v2
-    with:
-      key: ${{ secrets.SSH_PRIVATE_KEY }} 
-      known_hosts: 'placeholder'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+          ref: ${{ github.event.client_payload.sha }}
+    - name: Deploy 
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: root
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: chmod +x ./deploy.sh; ./deploy.sh
