@@ -29,5 +29,5 @@ jobs:
       with:
         token: ${{ secrets.REPO_GHA_PAT }}
         repository: ${{ github.repository }}
-        event-type: trigger-workflow-2
+        event-type: Docker Image Builder
         client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
