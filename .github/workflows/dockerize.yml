@@ -18,4 +18,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: cd ../../; chmod +x dockerize.sh; ./dockerize.sh "$DOCKER_LOGIN" "$DOCKER_PASSWORD" "$DOCKER_IMAGE"
+      run: chmod +x ../../dockerize.sh; ./../../dockerize.sh "$DOCKER_LOGIN" "$DOCKER_PASSWORD" "$DOCKER_IMAGE"
