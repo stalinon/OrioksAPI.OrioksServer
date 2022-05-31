@@ -16,6 +16,6 @@ latest=$image:latest
 docker build -f src/OrioksServer/Dockerfile -t $tag .  
 
 echo "$password" | docker login -u "$login" --password-stdin  
-docker push $image  
+docker push "$image":"$tag"
 
 docker system prune -f 
