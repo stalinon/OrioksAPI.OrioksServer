@@ -21,3 +21,11 @@ jobs:
         ref: ${{ github.event.client_payload.sha }}
     - name: Build and push
       run: chmod +x dockerize.sh; ./dockerize.sh $DOCKER_LOGIN $DOCKER_PASSWORD $DOCKER_IMAGE
+    - name: Trigger next workflow
+      if: success()
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.REPO_GHA_PAT }}
+        repository: ${{ github.repository }}
+        event-type: Deploy
+        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'

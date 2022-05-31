@@ -1,0 +1,12 @@
+name: Deploy project on server
+
+on:
+  repository_dispatch:
+    types: [Deploy project on server]
+
+steps:
+  - name: Install SSH Key
+    uses: shimataro/ssh-key-action@v2
+    with:
+      key: ${{ secrets.SSH_PRIVATE_KEY }} 
+      known_hosts: 'placeholder'
