@@ -1,9 +1,9 @@
 #!/bin/bash  
   
 
-login="$DOCKER_LOGIN"
-password="$DOCKER_PASSWORD"
-image="$login"/"$DOCKER_IMAGE"
+login="$1"
+password="$2"
+image="$login"/"$3"
 
 echo "IMAGE_NAME = $image"
 timestamp=$(date +%Y%m%d%H%M%S)  
