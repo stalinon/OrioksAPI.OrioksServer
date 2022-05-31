@@ -1,17 +1,20 @@
 #!/bin/bash  
+  
+image="$DOCKER_LOGIN/$DOCKER_IMAGE"
+login="$DOCKER_LOGIN"
+password="$DOCKER_PASSWORD"
 
-
-echo "IMAGE_NAME = $DOCKER_IMAGE"
+echo "IMAGE_NAME = $image"
 timestamp=$(date +%Y%m%d%H%M%S)  
   
-tag=$DOCKER_IMAGE:$timestamp  
+tag=$image:$timestamp  
 echo "TAG = $tag"
 
-latest=$DOCKER_IMAGE:latest
+latest=$image:latest
 
 docker build -f src/OrioksServer/Dockerfile -t $tag .  
 
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_LOGIN" --password-stdin  
-docker push $DOCKER_IMAGE  
+echo "$password" | docker login -u "$login" --password-stdin  
+docker push $image  
 
 docker system prune -f 
