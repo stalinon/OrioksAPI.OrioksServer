@@ -14,7 +14,7 @@ GET /api/v1/schedule/
 
 Получение информации о преподавателях
 ```http
-GET /api/v1/teacher/
+GET /api/v1/teachers/
 ```
 
 и подобными прочими.
