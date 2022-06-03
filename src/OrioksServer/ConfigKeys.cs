@@ -18,6 +18,6 @@ namespace OrioksServer
         /// <summary>
         ///     Путь к .env файлу
         /// </summary>
-        public const string ENV_PATH = "../../server.env";
+        public const string ENV_PATH = "../../env/server.env";
     }
 }
