@@ -21,8 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
-		dockerize.sh = dockerize.sh
 		deploy.sh = deploy.sh
+		dockerize.sh = dockerize.sh
 		.github\workflows\dockerize.yml = .github\workflows\dockerize.yml
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		postgres.env = postgres.env
@@ -36,6 +36,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{A5E18AEF-2
 	EndProjectSection
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7C93DB84-05CB-4EFA-85D5-02B607CC2CB7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "env", "env", "{37E8517C-350A-430C-876C-279B84E4E719}"
+	ProjectSection(SolutionItems) = preProject
+		env\postgres.env = env\postgres.env
+		env\server.env = env\server.env
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{48D57F70-543F-43E8-9168-444CBA7A4C85}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\deploy.sh = scripts\deploy.sh
+		scripts\dockerize.sh = scripts\dockerize.sh
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +89,8 @@ Global
 		{0E3C89C3-2CA7-480B-87D5-A066DF9E7F83} = {851AF50A-FD3D-4FD1-83E1-FCF154195CE6}
 		{481F6991-47C4-483E-909B-C56D21598B6B} = {851AF50A-FD3D-4FD1-83E1-FCF154195CE6}
 		{C41FE0C1-2171-4251-B802-CCFCCB21E0F4} = {D511EEFE-03BF-446A-8FF5-5FAAE8B9D168}
+		{37E8517C-350A-430C-876C-279B84E4E719} = {288D56DD-21C9-4363-A181-B972AD48918B}
+		{48D57F70-543F-43E8-9168-444CBA7A4C85} = {288D56DD-21C9-4363-A181-B972AD48918B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2747E32-7F22-4B44-91D2-55760A54D59B}
