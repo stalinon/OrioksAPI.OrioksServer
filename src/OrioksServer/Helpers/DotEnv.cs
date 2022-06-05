@@ -5,7 +5,9 @@ internal static class DotEnv
     public static void Load(string filePath = ConfigKeys.ENV_PATH)
     {
         if (!File.Exists(filePath))
+        {
             return;
+        }
 
         foreach (var line in File.ReadAllLines(filePath))
         {

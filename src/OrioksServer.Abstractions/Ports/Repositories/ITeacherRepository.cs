@@ -1,11 +1,10 @@
-﻿using OrioksServer.Abstractions.Entities;
+using OrioksServer.Abstractions.Entities;
 
-namespace OrioksServer.Abstractions.Ports.Repositories
+namespace OrioksServer.Abstractions.Ports.Repositories;
+
+/// <summary>
+///     Репозиторий преподавателей
+/// </summary>
+public interface ITeacherRepository : IRepository<TeacherEntity>
 {
-    /// <summary>
-    ///     Репозиторий преподавателей
-    /// </summary>
-    public interface ITeacherRepository : IRepository<TeacherEntity>
-    {
-    }
 }

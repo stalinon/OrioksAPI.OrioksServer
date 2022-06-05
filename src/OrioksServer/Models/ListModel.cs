@@ -1,23 +1,22 @@
 using System.Text.Json.Serialization;
 
-namespace OrioksServer.Models
+namespace OrioksServer.Models;
+
+/// <summary>
+///     Список
+/// </summary>
+public class ListModel<T>
 {
     /// <summary>
-    ///     Список
+    ///     Массив элементов
     /// </summary>
-    public class ListModel<T>
-    {
-        /// <summary>
-        ///     Массив элементов
-        /// </summary>
-        [JsonPropertyName("items")]
-        public T?[] Items { get; set; } = Array.Empty<T>();
+    [JsonPropertyName("items")]
+    public T?[] Items { get; set; } = Array.Empty<T>();
 
-        /// <summary>
-        ///     Количество элементов
-        /// </summary>
+    /// <summary>
+    ///     Количество элементов
+    /// </summary>
 
-        [JsonPropertyName("total")]
-        public int TotalCount { get; set; }
-    }
+    [JsonPropertyName("total")]
+    public int TotalCount { get; set; }
 }

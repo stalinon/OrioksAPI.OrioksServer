@@ -1,75 +1,72 @@
-using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace OrioksServer.Models.Schedule
+namespace OrioksServer.Models.Schedule;
+
+/// <summary>
+///     Типы дней
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum DayType
 {
     /// <summary>
-    ///     Типы дней
+    ///     Первый числитель
     /// </summary>
-    [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum DayType
-    {
-        /// <summary>
-        ///     Первый числитель
-        /// </summary>
-        FIRST_NUMIRATOR = 0,
+    FIRST_NUMIRATOR = 0,
 
-        /// <summary>
-        ///     Второй числитель
-        /// </summary>
-        SECOND_NUMIRATOR,
-
-        /// <summary>
-        ///     Первый знаменатель
-        /// </summary>
-        FIRST_DENOMINATOR,
-
-        /// <summary>
-        ///     Второй знаменатель
-        /// </summary>
-        SECOND_DENOMINATOR
-    }
-
-    
     /// <summary>
-    ///   Дни недели
+    ///     Второй числитель
     /// </summary>
-    [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum DayOfWeek
-    {
-        /// <summary>
-        ///     Воскресенье
-        /// </summary>
-        SUNDAY,
+    SECOND_NUMIRATOR,
 
-        /// <summary>
-        ///     Понедельник
-        /// </summary>
-        MONDAY,
+    /// <summary>
+    ///     Первый знаменатель
+    /// </summary>
+    FIRST_DENOMINATOR,
 
-        /// <summary>
-        ///     Вторник
-        /// </summary>
-        TUESDAY,
+    /// <summary>
+    ///     Второй знаменатель
+    /// </summary>
+    SECOND_DENOMINATOR
+}
 
-        /// <summary>
-        ///     Среда
-        /// </summary>
-        WEDNESDAY,
+/// <summary>
+///   Дни недели
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum DayOfWeek
+{
+    /// <summary>
+    ///     Воскресенье
+    /// </summary>
+    SUNDAY,
 
-        /// <summary>
-        ///     Четверг
-        /// </summary>
-        THURSDAY,
+    /// <summary>
+    ///     Понедельник
+    /// </summary>
+    MONDAY,
 
-        /// <summary>
-        ///     Пятница
-        /// </summary>
-        FRIDAY,
+    /// <summary>
+    ///     Вторник
+    /// </summary>
+    TUESDAY,
 
-        /// <summary>
-        ///     Суббота
-        /// </summary>
-        SATURDAY
-    }
+    /// <summary>
+    ///     Среда
+    /// </summary>
+    WEDNESDAY,
+
+    /// <summary>
+    ///     Четверг
+    /// </summary>
+    THURSDAY,
+
+    /// <summary>
+    ///     Пятница
+    /// </summary>
+    FRIDAY,
+
+    /// <summary>
+    ///     Суббота
+    /// </summary>
+    SATURDAY
 }

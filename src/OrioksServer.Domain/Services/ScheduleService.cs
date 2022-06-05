@@ -8,7 +8,7 @@ namespace OrioksServer.Domain.Services;
 /// <inheritdoc cref="IScheduleService"/>
 internal sealed class ScheduleService : IScheduleService
 {
-    private IUnitOfWork _unitOfWork = default!;
+    private readonly IUnitOfWork _unitOfWork = default!;
 
     /// <inheritdoc cref="ScheduleService"/>
     public ScheduleService(IUnitOfWork unitOfWork)

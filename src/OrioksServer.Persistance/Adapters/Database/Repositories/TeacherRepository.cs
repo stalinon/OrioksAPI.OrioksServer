@@ -1,20 +1,19 @@
 using OrioksServer.Abstractions.Entities;
 using OrioksServer.Abstractions.Ports.Repositories;
 
-namespace OrioksServer.Persistance.Adapters.Database.Repositories
+namespace OrioksServer.Persistance.Adapters.Database.Repositories;
+
+internal class TeacherRepository : Repository<TeacherEntity>, ITeacherRepository
 {
-    internal class TeacherRepository : Repository<TeacherEntity>, ITeacherRepository
+    private readonly AppDbContext _db;
+
+    public TeacherRepository(AppDbContext db) : base(db)
     {
-        private readonly AppDbContext _db;
+        _db = db;
+    }
 
-        public TeacherRepository(AppDbContext db) : base(db)
-        {
-            _db = db;
-        }
-
-        public override async Task<bool> ContainsAsync(TeacherEntity entity, CancellationToken cancellationToken = default)
-        {
-            return await FirstOrDefaultAsync(x => x.Name == entity.Name) != default;
-        }
+    public override async Task<bool> ContainsAsync(TeacherEntity entity, CancellationToken cancellationToken = default)
+    {
+        return await FirstOrDefaultAsync(x => x.Name == entity.Name, cancellationToken: cancellationToken) != default;
     }
 }

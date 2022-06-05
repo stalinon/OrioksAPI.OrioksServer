@@ -51,6 +51,4 @@ public class EnumMappings
             System.DayOfWeek.Sunday => Models.Schedule.DayOfWeek.SUNDAY,
             _ => Models.Schedule.DayOfWeek.SUNDAY,
         };
-
-
 }

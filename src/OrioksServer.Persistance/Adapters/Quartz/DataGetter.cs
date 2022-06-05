@@ -3,36 +3,35 @@ using OrioksServer.Abstractions.Entities;
 using OrioksServer.Abstractions.Ports.Quartz;
 using OrioksServer.Persistance.Adapters.Quartz.Mappings;
 
-namespace OrioksServer.Persistance.Adapters.Quartz
+namespace OrioksServer.Persistance.Adapters.Quartz;
+
+/// <inheritdoc cref="IDataGetter"/>
+public sealed class DataGetter : IDataGetter
 {
-    /// <inheritdoc cref="IDataGetter"/>
-    public sealed class DataGetter : IDataGetter
+    /// <inheritdoc/>
+    public async Task<IEnumerable<ScheduleEntity>> GetSchedules()
     {
-        /// <inheritdoc/>
-        public async Task<IEnumerable<ScheduleEntity>> GetSchedules()
+        var client = await OrioksClient.Instance();
+        var groupKeys = await client.ScheduleNoApi.GetGroupKeys();
+
+        var schedules = new List<ScheduleEntity>();
+
+        foreach (var groupKey in groupKeys)
         {
-            var client = await OrioksClient.Instance();
-            var groupKeys = await client.ScheduleNoApi.GetGroupKeys();
-
-            var schedules = new List<ScheduleEntity>();
-
-            foreach (var groupKey in groupKeys)
-            {
-                var schedule = await client.ScheduleNoApi.GetDisciplineScheduleItemsAsync(groupKey);
-                schedules.AddRange(EntityMapper.MapSchedule(schedule));
-            }
-
-            return schedules;
+            var schedule = await client.ScheduleNoApi.GetDisciplineScheduleItemsAsync(groupKey);
+            schedules.AddRange(EntityMapper.MapSchedule(schedule));
         }
 
-        /// <inheritdoc/>
-        public async Task<IEnumerable<TeacherEntity>> GetTeachers()
-        {
-            var client = await OrioksClient.Instance();
+        return schedules;
+    }
 
-            var teachers = (await client.Teacher.GetAllTeacherInfos()).Select(EntityMapper.MapTeacher);
+    /// <inheritdoc/>
+    public async Task<IEnumerable<TeacherEntity>> GetTeachers()
+    {
+        var client = await OrioksClient.Instance();
 
-            return teachers;
-        }
+        var teachers = (await client.Teacher.GetAllTeacherInfos()).Select(EntityMapper.MapTeacher);
+
+        return teachers;
     }
 }

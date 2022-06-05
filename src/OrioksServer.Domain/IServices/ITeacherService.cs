@@ -1,11 +1,10 @@
 using OrioksServer.Abstractions.Entities;
 
-namespace OrioksServer.Domain.IServices
+namespace OrioksServer.Domain.IServices;
+
+/// <summary>
+///     Доменный сервис преподавателей
+/// </summary>
+public interface ITeacherService : IDomainService<TeacherEntity>
 {
-    /// <summary>
-    ///     Доменный сервис преподавателей
-    /// </summary>
-    public interface ITeacherService : IDomainService<TeacherEntity>
-    {
-    }
 }
